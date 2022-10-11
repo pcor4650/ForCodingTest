@@ -4,7 +4,7 @@ n, m = map(int, input().split())
 #2차원 리스트의 맵 정보 입력받기
 graph = []
 for i in range(n):
-    graph.append(map(int,input()))
+    graph.append(list(map(int,input())))
     
 # DFS로 특정한 노드를 방문한 뒤 연결된 모든 노드들도 방문
 def dfs(x, y):
