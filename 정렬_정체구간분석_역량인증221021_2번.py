@@ -19,6 +19,8 @@ carList.sort(key=lambda x:x[0])     #초기 위치 기준으로 정력
 for i in reversed(range(N)):
     if i == N-1:
         carList[i][0] = carList[i][0] + T*carList[i][1]
+        if carList[i][0] > int(1e9)
+            carList[i][0] = int(1e9)
     else:
         carList[i][0] = min(carList[i+1][0], carList[i][0] + T*carList[i][1])
 
