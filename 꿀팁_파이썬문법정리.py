@@ -2,6 +2,9 @@
 
 array = [i for i in range(20) if i%2==1]    #리스트 컴프리헨션# 0부터 19까지 홀수만 포함하는 리스트 생성
 
+# 2차원 배열 입력 받기
+MAP = [list(map(int, input().split())) for _ in range(N)]
+
 # 2차원 배열 정렬 
 x = [[2, 1], [3, 4], [1, 2], [1, 3], [3, 2]]
 x.sort(key=lambda x:x[0])   
@@ -49,6 +52,19 @@ a_transpose = [col for col in zip(*a)]
 B = [4, 5, 8]
 B = list(map(lambda x-B[0], B))
 
+# 배열 복사
+import copy
+copied_array = copy.deepcopy(a) # 1. deepcopy 사용
+
+b = list(a) # 2. list를 생성할 때 매개변수에 원본을 전달
+c = a[:]    # 3. 슬라이싱 -> 2차원 배열 되는지 확인해보자
+
+# 리스트 중복된 원소의 개수 구하기
+maxCount = 0
+for i in set(final_G):
+    count = final_G.count(i)
+    maxCount = max(count, maxCount)
+
 ##################################################################################################################################
 # 2차원에서 상,하,좌,우 이동방법
 dx = [-1. 0, 1, 0]
@@ -56,7 +72,6 @@ dy = [0, -1, 0, 1]
  또는
 dir = [[-1,0], [1,0], [0,-1], [0,1]]
 
-# global 언제 사용?
 
 # in 연산자와 not in 연산자, True 또는 False 반환
 x in 리스트
@@ -82,3 +97,40 @@ from itertools import combinations
 data = ['A', 'B', 'C']
 result = list(permutations(data, 3))
 result = list(combinations(data, 2))
+
+# 문자열 연산
+ord('A') # 문자열 -> 아스키코드 # 65
+chr(65) # 아스키코드 -> 문자열  # A
+
+
+
+# 수 자료형 연산
+/ : 나누기
+% : 나머지
+// : 몫
+
+# 조건문 작성
+if ~ elif ~ else문
+
+# 함수 안에서 함수 밖의 변수 데이터를 변경해야 하는 경우
+global
+
+# math
+import math
+
+print(math.factorial(5)) # 5 팩토리얼 출력
+print(math.sqrt(7)) # 7의 제곱근 출력
+print(math.gcd(21,14)) # 21과 14의 최대 공약수 , 7
+print(math.pi) # 파이 출력
+print(math.e) # 자연상수 출력
+
+# 값이 알파벳인지 숫자인지 확인
+"a".isalpha() # True
+"3".isalpha() # False
+
+"3".isdigit() # True
+"a".isdigit() # False
+
+# 재귀 리미트
+import sys
+sys.setrecursionlimit(10 ** 6)
