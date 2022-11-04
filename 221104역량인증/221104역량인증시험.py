@@ -282,3 +282,52 @@ print(anstime, anscnt)
 
 출력
 5000 7
+
+
+
+다른 사람 작성, 답 아님
+
+import sys
+
+def input_data():
+	readl = sys.stdin.readline
+	N, K, M = map(int,readl().split())
+	A = list(list(map(int,readl().split())))
+	return N, K, M, A
+
+
+anstime, anscnt = 0, 0
+# 입력 함수
+N, K, M, A = input_data()
+
+# 여기서부터 작성
+A.sort()
+s = 0
+e = A[-1] - A[0]
+
+while s<=e:
+	mid = (s+e) // 2
+	room_cnt = 0
+	room = [ [] *M for _ in range(N) ]
+	for i in range(N):
+		if len(room[room_cnt]) < M:
+			room[room_cnt].append(A[i])
+		else:
+			room_cnt += 1
+			room[room_cnt].append(A[i])
+
+		if room[room_cnt][-1] - room[room_cnt][0] > mid:
+			room[room_cnt].pop()
+			room_cnt += 1
+			room[room_cnt].append(A[i])
+
+	if room_cnt >= K:
+		s = mid +1
+	else:
+		e = mid -1
+	
+# 출력하는 부분
+anstime = s
+anscnt = room_cnt+1
+
+print(anstime, anscnt)
