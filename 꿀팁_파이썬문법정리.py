@@ -134,3 +134,5 @@ print(math.e) # 자연상수 출력
 # 재귀 리미트
 import sys
 sys.setrecursionlimit(10 ** 6)
+
+edit on vscode.dev
