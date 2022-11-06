@@ -308,7 +308,7 @@ e = A[-1] - A[0]
 while s<=e:
 	mid = (s+e) // 2
 	room_cnt = 0
-	room = [ [] *M for _ in range(N) ]
+	room = [ [] *M for _ in range(N) ]		*M 의미 없음
 	for i in range(N):
 		if len(room[room_cnt]) < M:
 			room[room_cnt].append(A[i])
