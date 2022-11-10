@@ -139,8 +139,8 @@ import sys
 sys.setrecursionlimit(10 ** 6)
 
 # 리스트 deque 시간 복잡도 비교
-                            리스트          deque
-가장 앞쪽에 원소 추가            O(N)           O(1)
-가장 뒤쪽에 원소 추가            O(1)           O(1)
-가장 앞쪽에 있는 원소 제거        O(N)           O(1)
-가장 뒤쪽에 있는 원소 제거        O(1)           O(1)
+                            리스트              deque
+가장 앞쪽에 원소 추가            O(N)               O(1)   appendleft(x)
+가장 뒤쪽에 원소 추가            O(1)               O(1)   append(x) 
+가장 앞쪽에 있는 원소 제거        O(N)               O(1)   pop()
+가장 뒤쪽에 있는 원소 제거        O(1)               O(1)   popleft()
