@@ -22,21 +22,32 @@ def input_data():
 
 sol = -1
 N, data= input_data()
-data.sort()
+data.sort(key=lambda x:x[0])
  
 # 코드를 작성하세요
-INF = 987654321
-buy_result = [INF]*N
-buy_result[N-1] = data[N-1][1]
-for i in reversed(range(N-1)):
-    if data[i][1] < buy_result[i+1]:
-        buy_result[i] = data[i][1]
-    elif data[i][1] > buy_result[i+1]:
-        buy_result[i] = buy_result[i+1]
+stack = []
+buy_price = []
+for i in range(N):
+    price = data[i][1]
+    count = 0
 
-sol = sum(buy_result)
+    while stack:
+        if stack[-1] > price:
+            stack.pop()
+            count += 1
+        else:
+            break
+        if count > 0:
+            for _ in range(count):
+                buy_price.append(price)                
+
+    stack.append(price)
+
+while stack:
+    buy_price.append(stack.pop())
+
 # 출력
-print(sol)
+print(sum(buy_price))
 
 
 
