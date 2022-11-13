@@ -37,9 +37,9 @@ for i in range(N):
             count += 1
         else:
             break
-        if count > 0:
-            for _ in range(count):
-                buy_price.append(price)                
+    if count > 0:
+        for _ in range(count):
+            buy_price.append(price)                
 
     stack.append(price)
 
