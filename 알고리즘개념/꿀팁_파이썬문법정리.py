@@ -1,7 +1,7 @@
 # 리스트 #
 
 array = [i for i in range(20) if i%2==1]    #리스트 컴프리헨션# 0부터 19까지 홀수만 포함하는 리스트 생성
-
+print(array)
 # 2차원 배열 입력 받기
 MAP = [list(map(int, input().split())) for _ in range(N)]
 
