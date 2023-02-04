@@ -2,6 +2,7 @@
 
 import sys
 
+
 def Input_Data():
 	readl = sys.stdin.readline
 	N = int(readl())
@@ -12,8 +13,8 @@ ans = 1
 N, info = Input_Data() # 입력 받는 부분
 
 # 여기서 부터 작성
-for i in range(N):
-	info[i][1] = info[i][0] + info[i][1] + 2
+# for i in range(N):
+# 	info[i][1] = info[i][0] + info[i][1] + 2
 
 info.sort(key = lambda x:x[0])
 info.sort(key = lambda x:x[1])
