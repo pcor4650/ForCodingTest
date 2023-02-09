@@ -40,4 +40,5 @@ for i in range(s, e+1):
         right = j + i -1
         part_sum = prefix_sum[right] - prefix_sum[left-1]
         min_sum = min(min_sum, part_sum)
+        print("left:", left, ", right:", right, ", part_sum:", part_sum, ", min_sum: ", min_sum)
 print(min_sum)

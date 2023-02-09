@@ -25,4 +25,4 @@ for height in Heights:
 		stack.append(height)
 
 print(cnt)
-print(stack)
+# print(stack)
