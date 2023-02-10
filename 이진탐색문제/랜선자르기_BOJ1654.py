@@ -1,7 +1,3 @@
-
-
-
-
 # 문제
 # 집에서 시간을 보내던 오영식은 박성원의 부름을 받고 급히 달려왔다. 박성원이 캠프 때 쓸 N개의 랜선을 만들어야 하는데 너무 바빠서 영식이에게 도움을 청했다.
 # 이미 오영식은 자체적으로 K개의 랜선을 가지고 있다. 그러나 K개의 랜선은 길이가 제각각이다. 박성원은 랜선을 모두 N개의 같은 길이의 랜선으로 만들고 싶었기 때문에 K개의 랜선을 잘라서 만들어야 한다. 
@@ -28,3 +24,34 @@
 # 457	2	4	3	2	2	2	2	2
 # 539	2	5	3	3	3	3	3	3
 # toal	10	21	13	13	10	10	10	11->답
+
+import sys
+input = sys.stdin.readline
+
+K, N = map(int, input().split())
+datas = []
+for _ in range(K):
+    datas.append(int(input()))
+
+start = 1
+end = max(datas)
+
+def bin_search(array, s, e):
+    while s<=e:
+        mid=(s+e)//2
+        cnt = 0
+        for data in datas:
+            cnt += (data//mid)
+        print("s: ",s,", e: ", e,", mid: ",mid, "cnt: ",cnt)
+        if cnt >= N:
+            s = mid + 1     
+        else:
+            e = mid -1
+            
+        print("s: ",s,", e: ",e, "mid: ", mid)
+    return e
+
+e = bin_search(datas, start, end)
+# print(start)
+# print(b)
+print(e)
