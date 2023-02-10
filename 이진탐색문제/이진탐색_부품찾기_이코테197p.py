@@ -1,5 +1,5 @@
 import sys
-# readl = sys.stdin.readline()    # 일단 문제는 input()로 풀자
+readl = sys.stdin.readline
 
 n = int(input())
 storeParts = list(map(int, input().split()))
