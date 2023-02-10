@@ -1,27 +1,27 @@
-import sys
-input = sys.stdin.readline
+# import sys
+# input = sys.stdin.readline
 
-n, m = map(int, input().split())
-data = list(map(int, input().split()))
+# n, m = map(int, input().split())
+# data = list(map(int, input().split()))
 
-s, e = max(data), sum(data)     # 블루레이의 최대 길이는 리스트의 합, 최소 길이는 리스트의 최댓값이다.
+# s, e = max(data), sum(data)     # 블루레이의 최대 길이는 리스트의 합, 최소 길이는 리스트의 최댓값이다.
 
-while s<=e:
-    mid = (s+e) // 2
-    cnt = 0     #블루레이 개수
-    tmp = 0     #블루레이 길이
-    for i in range(n):
-        if tmp + data[i] > mid:
-            cnt += 1
-            tmp = 0       
-        tmp += data[i]
-    cnt += 1 if tmp else 0
+# while s<=e:
+#     mid = (s+e) // 2
+#     cnt = 0     #블루레이 개수
+#     tmp = 0     #블루레이 길이
+#     for i in range(n):
+#         if tmp + data[i] > mid:
+#             cnt += 1
+#             tmp = 0       
+#         tmp += data[i]
+#     cnt += 1 if tmp else 0
 
-    if cnt <= m:
-        e = mid - 1
-    else : 
-        s = mid + 1
-print(s)
+#     if cnt <= m:
+#         e = mid - 1
+#     else : 
+#         s = mid + 1
+# print(s)
 
 # 문제 백준 2343번
 # 강토는 자신의 기타 강의 동영상을 블루레이로 만들어 판매하려고 한다. 
@@ -40,3 +40,77 @@ print(s)
 
 
 # 1 2 3 4 5 | 6 7 | 8 9
+
+
+# import sys
+# input = sys.stdin.readline
+
+# N, M = map(int, input().split())
+# datas = list(map(int, input().split()))
+
+# s = max(datas)
+# e = sum(datas)
+
+# def bin_search(start, end, datas):
+#     while start <= end:
+#         print("start: ", start, " end: ", end)
+#         mid = (start+end) // 2
+#         cnt = 0
+#         tmp_length = 0
+#         b = []
+
+#         for data in datas:
+#             print("mid: ",mid, ", data: ", data, ", tmp_length: ", tmp_length)
+#             if tmp_length + data > mid:
+#                 cnt += 1
+#                 tmp_length = 0
+#             tmp_length += data
+#         if tmp_length != 0:
+#             cnt += 1
+
+#         print("cnt: ", cnt)
+#         if cnt < M:
+#             end = mid - 1
+#         elif cnt == M:
+#             end = mid -1
+#             b.append(mid)
+#         else:
+#             start = mid + 1
+#     return start, end, b
+
+# start, end, b = bin_search(s, e, datas)
+# print(b)
+
+import sys
+input = sys.stdin.readline
+N, M = map(int, input().split())
+lec_length = list(map(int, input().split()))
+
+start = max(lec_length)
+end = sum(lec_length)
+
+def bin_search(array, s, e):
+    while s <= e:
+        mid = (s+e) // 2
+        tmp_length = 0
+        cnt = 0
+
+        for a in array:
+            if tmp_length + a > mid:
+                cnt += 1
+                tmp_length = 0
+            tmp_length += a
+        if tmp_length != 0:
+            cnt += 1
+
+        
+        
+        if cnt <= M:
+            e = mid - 1
+        else: 
+            s = mid + 1
+    return s, e
+
+s, e = bin_search(lec_length, start, end)
+
+print(s)
