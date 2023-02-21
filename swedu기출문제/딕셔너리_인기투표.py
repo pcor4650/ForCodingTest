@@ -16,14 +16,21 @@ for _ in range(M):
 	score = int(s)
 	if SC.get(name, -1) != -1:
 		SC[name] += score
-print(SC)
-		
-B = []
-for i,name in enumerate(A):
-	B.append([i, SC[name]])
-B.sort(key=lambda x: [-x[1], x[0]])
-# print(B)
+# print(SC)
+
+SC_list = list(SC.items())
+SC_list.sort(key=lambda x:-x[1])
+# print(SC_list)
+
 for i in range(3):
-	print(A[B[i][0]], B[i][1])
+	print(SC_list[i][0], SC_list[i][1])
+
+# B = []
+# for i,name in enumerate(A):
+# 	B.append([i, SC[name]])
+# B.sort(key=lambda x: [-x[1], x[0]])
+# # print(B)
+# for i in range(3):
+# 	print(A[B[i][0]], B[i][1])
 
 
