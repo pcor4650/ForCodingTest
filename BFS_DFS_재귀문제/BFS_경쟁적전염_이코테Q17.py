@@ -15,6 +15,9 @@ for i in range(n):
 #정렬 이후에 큐로 옮기기(낮은 번호의 바이러스가 먼저 증식하므로
 data.sort()
 q = deque(data)
+print(q)
+q.popleft()
+print(q)
 
 target_s, target_x, target_y = map(int, input().split())
 

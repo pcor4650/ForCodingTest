@@ -16,7 +16,7 @@ top.sort()
 bot.sort()
 cnt = 1
 
-min_val = N
+min_val = N     # 부셔야 되는 장애물 수를 위한 변수
 
 
 print("top: ", top)
@@ -25,7 +25,7 @@ print("bot: ", bot)
 for h in range(1, H+1):
     t, b = bisect_left(top,  (H+1)-h), bisect_left(bot, h)
     total = N-(t+b)
-    print("h: ", h, ", t:", t, ", b: ", b, ", total:", total, ", min_val: ", min_val)
+    print("h: ", h, ", t:", t, ", b: ", b, ", total:", total, ", min_val: ", min_val, ", cnt: ", cnt)
     if total < min_val:
         min_val = total
         cnt = 1

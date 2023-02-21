@@ -26,7 +26,7 @@ def bin_search(array, start, end):
         else :
             end = mid -1
 
-start = array[0]
+start = 1
 end = array[-1] - array[0]
 answer = 0
 
