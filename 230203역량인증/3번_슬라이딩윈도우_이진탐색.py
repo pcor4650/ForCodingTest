@@ -5,22 +5,12 @@
 # 5.출력은 광고판의 최소높이
 # 6.볼수 있는 사람이 많은 위치를 찾는게 아니라  기대값을 만족하는 최소 높이를 찾음
 
-N = 0  # 횡단보도수
-E = 0  # 기대효과
-Q = [0] * (100000 + 10)  # 이용자수
-P = [0] * (100000 + 10)  # 횡단보도 위치
-D = [0] * (1000000 + 10)  # 위치별 이용자수배열
-maxP = 0  # 이용자수가 있는 최대위치
-
-
-def InputData():
-    global N, E, Q, P, D, maxP
-    N, E = map(int, input().split())
-    for i in range(N):
-        Q[i], P[i] = map(int, input().split())
-        D[P[i]] = Q[i]
-        if P[i] > maxP:
-            maxP = P[i]
+# N = 0  # 횡단보도수
+# E = 0  # 기대효과
+# Q = [0] * (100000 + 10)  # 이용자수
+# P = [0] * (100000 + 10)  # 횡단보도 위치
+# D = [0] * (1000000 + 10)  # 위치별 이용자수배열
+# maxP = 0  # 이용자수가 있는 최대위치
 
 
 # d길이 구간이 E기대효과를 충족하는지 판단
@@ -43,23 +33,26 @@ def IsEOK(d):
             return True
     return False
 
+N, E = map(int, input().split())
+maxP = 0
+for i in range(N):
+    Q, P = map(int, input().split())
+    D = dict()
+    D[P] = Q
+    maxP = max(maxP, P)
 
-def main():
-    global N, E, Q, P, D, maxP
-    ans = -1
-    s, e, m = 0, maxP + 1, 0
-    InputData()
+s, e= 0, maxP + 1
 
-    while e >= s:
-        m = (s + e) // 2
-        if IsEOK(m):
-            e = m - 1
-        else:
-            s = m + 1
+ans = 0
 
-    ans = s // 2
-    print(ans)
+while s <= e:
+    m = (s + e) // 2
+    sumE = 0
+    
+    if IsEOK(m):
+        e = m - 1
+    else:
+        s = m + 1
 
-
-if __name__ == '__main__':
-    main()
+ans = s // 2
+print(ans)

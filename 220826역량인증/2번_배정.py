@@ -1,4 +1,4 @@
-0826 SW 역량 테스트 2번 문제 답
+# 0826 SW 역량 테스트 2번 문제 답
 
 from collections import deque
 
