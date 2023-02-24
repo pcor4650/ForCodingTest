@@ -1,7 +1,6 @@
-# 3개 맞고 시간초과
-# 패착 : 미리 두 포인트간 최단 거리 구해놨는데 그거 안쓰고, 순열마다 BFS 실행되도록 작성하여 시간초과 발생
 
 
+# 수정해보자: 
 import sys
 from itertools import permutations, combinations
 from collections import deque
@@ -70,7 +69,7 @@ for comb in comb_two:
 	start = pos[pos1]
 	end = pos[pos2]
 	dis = bfs(start, end)
-	dist_comb_two[comb] = dis
+	dist_comb_two[comb] = dis							# combination 반환값은 튜플로 set으로 바꿨어야
 	
 # for pos1 in list_pos:
 # 	dist = [[1000]*C for _ in range(R)]
@@ -119,3 +118,6 @@ print(min_dis)
 
 # 출력(위 입력에 맞는 답 아님):
 # 18 
+
+
+# 위 제출 답안 수정:
