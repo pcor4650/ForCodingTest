@@ -29,7 +29,7 @@ for i in range(R):
 # print(point_pos)
 
 
-# 두 점간 위치 간 최단거리 BFS로 구현
+# 두 점간 위치 최단거리 BFS로 구현
 # S:[sy, sx], E = [ey, ex]
 def bfs(S, E):
 	sy, sx = S[0], S[1]
@@ -53,13 +53,13 @@ combTwoPoint = combinations(point_pos.keys(), 2)
 twoPoint_dist = dict()
 
 # 두 포인트 간 최단거리 미리 구해놓기, twoPoint_dist의 키로 (s, e), (e, s) 모두 저장, 최대 키 90개
-for pos1 in point_pos.keys():
+for point1 in point_pos.keys():
 	dist = [[INF]*C for _ in range(R)]		# 각 시작 포인트에서만 dist배열 초기화
-	for pos2 in point_pos.keys():
-		if pos1 != pos2:
-			start, end = point_pos[pos1], point_pos[pos2]
+	for point2 in point_pos.keys():
+		if point1 != point2:
+			start, end = point_pos[point1], point_pos[point2]
 			distance = bfs(start, end)
-			twoPoint_dist[(pos1, pos2)] = distance
+			twoPoint_dist[(point1, point2)] = distance
 print(twoPoint_dist)
 
 
