@@ -1,13 +1,7 @@
-
-
-# 수정해보자: 
-import copy
-import datetime
 import sys
 import time
 from collections import deque
 from itertools import combinations, permutations
-
 
 def Input_Data():
 	readl = sys.stdin.readline
@@ -15,118 +9,94 @@ def Input_Data():
 	map_city = [readl().strip() for _ in range(R)]
 	return R, C, map_city
 
-sol = -1
-# 입력 받는 부분
 R, C, map_city = Input_Data()
 
-start_time = time.time()
-
-
-
-pos = dict()
-dir = [[1,0],[-1,0],[0,1],[0,-1]]
 # 여기서부터 작성
-# S 및 숫자 위치 저장
+start_time = time.time()
+INF = 9876543210
+
+# 딕셔너리 변수는 key_value형태로 네이밍
+point_pos = dict()
+dir = [[1,0],[-1,0],[0,1],[0,-1]]
+
+# 각 포인트의 위치 딕셔너리에 저장
 for i in range(R):
 	for j in range(C):
 		if map_city[i][j] == 'S':
-			pos['S'] = [i, j]
+			point_pos['S'] = [i, j]
 		if map_city[i][j] != '.' and map_city[i][j] != '*':
-			pos[map_city[i][j]] = [i, j]
-# print(pos)
+			point_pos[map_city[i][j]] = [i, j]
+# print(point_pos)
 
-set_pos = set(list(pos))
-list_pos = list(pos)
 
-# 두 점의 위치 최단거리 BFS 구현
+# 두 점간 위치 간 최단거리 BFS로 구현
 # S:[sy, sx], E = [ey, ex]
 def bfs(S, E):
 	sy, sx = S[0], S[1]
 	ey, ex = E[0], E[1]
-	dist = [[1000]*C for _ in range(R)]	#다른데 가야할듯
 	dist[sy][sx] = 0
 	Q = deque()
 	Q.append([sy, sx])
 	while Q:
-		# print("===")
-		# for k in dist:
-		# 	print(k)
 		y, x = Q.popleft()
 		for dy, dx in dir:
 			ny, nx = y+dy, x+dx
 			if 0<=ny<R and 0<=nx<C and map_city[ny][nx] != '*' and dist[ny][nx] > dist[y][x]+1:
 				dist[ny][nx] = dist[y][x]+1
 				Q.append([ny,nx])
-	return dist[ey][ex]			
+	return dist[ey][ex]
 # test_bfs = bfs([0,1], [3,0])
 
-# print(P)
-# print(list_pos)
-# print(perm_pos_list)
-# list_pos.remove('S')
 
-comb_two = set(list(combinations(list_pos, 2)))
-dist_comb_two = dict.fromkeys(comb_two, 0)
-# print(dist_comb_two)
-# print(comb_two)
+combTwoPoint = combinations(point_pos.keys(), 2)
+# print("combTowPoint: ", combTwoPoint)
+twoPoint_dist = dict()
 
-# 두 포인트 간 최단거리 미리 구해놓기
-make_time = time.time()
-for comb in comb_two:
-	pos1, pos2 = comb
-	start = pos[pos1]
-	end = pos[pos2]
-	dis = bfs(start, end)
-	dist_comb_two[comb] = dis							# combination 반환값은 튜플로, set으로 바꿨어야-> dict의 key로 set 못쓰네
-print(dist_comb_two)	
-print("두 포인트 간 거리 찾는 코드 실행시간: ", time.time() - make_time, "초")
-# for pos1 in list_pos:
-# 	dist = [[1000]*C for _ in range(R)]
-# 	for pos2 in list_pos:
-# 		if pos1 != pos2:
-# 			start = pos[pos1]
-# 			end = pos[pos2]
-# 			dis = bfs(start, end)
-# 			dist_comb_two[(pos1, pos2)] = dis
-# print(dist_comb_two)
-	# print(dis)
-	# print("S: ", S, "E: ", E)
-# print("list_pos: ", list_pos)
-# print("set_pos: ", set_pos)
+# 두 포인트 간 최단거리 미리 구해놓기, twoPoint_dist의 키로 (s, e), (e, s) 모두 저장, 최대 키 90개
+for pos1 in point_pos.keys():
+	dist = [[INF]*C for _ in range(R)]		# 각 시작 포인트에서만 dist배열 초기화
+	for pos2 in point_pos.keys():
+		if pos1 != pos2:
+			start, end = point_pos[pos1], point_pos[pos2]
+			distance = bfs(start, end)
+			twoPoint_dist[(pos1, pos2)] = distance
+print(twoPoint_dist)
 
-perm_pos_list = copy.deepcopy(list_pos)
-perm_pos_list.remove('S')
-P = list(permutations(perm_pos_list,len(perm_pos_list)))
 
-min_dis = 1000
-# print(P)
+# S를 제외한 리스트 생성 -> 해당 리스트로 순열 생성 -> 모든 경우의 수에 대해 최단거리 비교
+pointList = list(point_pos)
+pointList.remove('S')
+P = permutations(pointList,len(pointList))		
+# print("P: ", list(P))
+min_dis = INF
+# P는 최대 9!의 개수를 가질 수 있어 시간초과 문제 없음, 모든 경우의 수에 대해 하나씩 확인
 for p in P:
 	tmp_dis = 0
 	s = 'S'
-	for g in p:
-		e = g
-		if (s, e) in dist_comb_two.keys():			# 수정
-			tmp_dis += dist_comb_two[(s,e)]
-		elif (e, s) in dist_comb_two.keys():
-			tmp_dis += dist_comb_two[(e,s)]
-		if tmp_dis > min_dis:
+	for point in p:
+		e = point
+		tmp_dis += twoPoint_dist[(s,e)]
+		if tmp_dis > min_dis:		# 시간 줄이기 위한 중간 가지치기
 			break
-		s = g
+		s = point
 	e = 'S'
-	if (s, e) in dist_comb_two.keys():				#수정
-		tmp_dis += dist_comb_two[(s,e)]
-	elif (e, s) in dist_comb_two.keys():
-		tmp_dis += dist_comb_two[(e,s)]              
+	tmp_dis += twoPoint_dist[(s,e)]            
 	min_dis = min(min_dis, tmp_dis)
-print(min_dis)		
+print(min_dis)		# 답
 
-print("time :", time.time() - start_time, "초")  # 현재시각 - 시작시간 = 실행 시간
+print("실행시간 :", time.time() - start_time, "초")
 
 
-# 출력하는 부분
-# print(sol)
+# 풀이:
+# 1) 각 포인트의 위치 딕셔너리에 저장
+# 2) 두 지점간 최단거리 BFS로 구현
+# 3) 두 지점 간 최단거리 딕셔너리에 저장 (예){(s,e):거리}
+# 4) 두 지점 간 최단거리 저장해 놨으므로, 순열로 모든 케이스 확인해도 최대 math.fatorial(9) = 362880 번만 수행하기에 시간초과 없을 것으로 예상됨 
+# 5) 순열 돌며 모든 케이스에 대해 총 거리 비교하여 최단경로 업데이트 
 
-# 입력 기억 안남 아래는 기억 의존:
+
+
+# 입력 기억 안남 아래는 기억 의존 비슷 구현:
 # 5 5
 # .S*.1
 # ..*2.
@@ -134,26 +104,25 @@ print("time :", time.time() - start_time, "초")  # 현재시각 - 시작시간 
 # .....
 # ...4.
 
-# 출력(위 입력에 맞는 답 아님):
-# 18 
-
-
-# 위 제출 답안 수정:
-
+# 출력(위 입력에 맞는 답):
+# 20
 
 
 # 테스트케이스 제작:
+# TC1, 정답 맞는지 확인을 위한 TC
 # 3 3
 # S.1
 # **.
 # 2..
+
+# TC2
 # 4 4
 # S...
 # *1*3
 # ..5.
 # 4...
 
-
+# TC3, worst case 시간 측정을 위한 TC
 # 100 100
 # ..........................................................................................S.........
 # ...8.......................................................*****************************************
