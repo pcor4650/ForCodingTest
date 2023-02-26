@@ -1,0 +1,68 @@
+
+'주석 이츠 마이 타임 투 샤인~
+@startuml my simple order request
+
+' 테마 바꾸는법
+skinparam sequence {
+    ArrowColor DeepSkyBlue
+    ActorBorderColor DeepSkyBlue
+    FontName Aapex
+
+    MessageAlign direction
+
+}
+' true | reverse | 
+' skinparam Monochrome true
+
+header HEADER
+footer Page %page% of %lastpage%
+title :Order Flow
+actor "Web User" as WebUser
+participant "Front End" as Portal
+participant Gateway
+participant "Identity \nServer" as IdentityServer #Yellow
+participant "Rest api" as RestApi
+database OrdersDatabase
+entity "External Shipping Service" as ExternalShippingService
+
+
+autonumber
+WebUser -> Portal ++ : Orders Request
+' activate Portal
+group Step: Authentication
+    Portal -> Gateway ++: GET /api/v1/orders \nBearer token
+    Gateway -> IdentityServer ++ : Authenticate Token
+    IdentityServer --> IdentityServer : Validate \nToken
+    IdentityServer -[#green]> Gateway : Success, Token Validated
+else Authentication Failed
+autonumber 5
+    IdentityServer -[#red]> Gateway -- : Request Failed
+    Gateway -[#red]> Portal : Authentication Failure
+    Potal -[#red]> WebUser : Login Again
+
+end
+
+group Call Order API
+    autonumber 6
+    Gateway -> RestApi ++ : GET /api/v1/orders
+    RestApi --[#Blue]> RestApi : Do some Processing
+    group Database Interaction
+        autonumber 8.1
+        RestApi -> OrdersDatabase ++ : Query Orders
+        OrdersDatabase -> RestApi -- : Orders
+    end
+    autonumber inc A
+    loop Find shipping status
+    RestApi -> ExternalShippingService ++ : Find Shipping Status
+    ExternalShippingService -> RestApi -- : Return Shipping Status
+    end
+    autonumber 9
+    RestApi -> Portal --: Orders
+
+end
+Portal -> WebUser --: Response
+
+
+
+
+@enduml
