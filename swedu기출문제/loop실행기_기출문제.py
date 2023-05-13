@@ -1,5 +1,6 @@
 import sys
 
+
 def input_data():
 	readl = sys.stdin.readline
 	loop = readl().strip()

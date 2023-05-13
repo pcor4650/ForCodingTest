@@ -3,6 +3,7 @@ import time
 from collections import deque
 from itertools import combinations, permutations
 
+
 def Input_Data():
 	readl = sys.stdin.readline
 	R, C = map(int,readl().split())
