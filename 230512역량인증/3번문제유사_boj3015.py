@@ -35,22 +35,26 @@
 import sys
 
 N = int(sys.stdin.readline())
-heights = []
-answer = 0
 stack = []
+answer = 0
 
 for _ in range(N):
     height = int(sys.stdin.readline())
-    heights.append(height)
+    cnt = 1
 
     while stack and stack[-1][0] <= height:
         h, cnt = stack.pop()
-        answer += cnt
 
         if h == height:
-            answer += 1
+            answer += cnt
+            cnt += 1
+        elif h < height:
+            answer += cnt
+            cnt = 1
+    if stack:
+        answer += 1
 
-    stack.append((height, answer))
-    answer = 0
+    stack.append((height, cnt))
 
-print(sum(item[1] for item in stack))
+print(answer)
+print(stack)
