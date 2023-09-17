@@ -55,26 +55,81 @@
 			
 # print(ans)
 
+# import sys
+
+# input = sys.stdin.readline
+# from collections import deque
+
+# sys.setrecursionlimit(10**6)
+# INF = 987654321
+
+# N, M = map(int, input().split())
+# board = []
+# for _ in range(N):
+#     board.append(list(map(int, input().split())))
+
+# dir = [[1,0], [-1, 0], [0, 1], [0, -1]]
+
+# def dfs(sy, sx):
+#     board[sy][sx] = 2
+#     for dy, dx in dir:
+#         ny, nx = sy+dy, sx+dx
+#         if 0<= ny < N and 0 <= nx < M and board[ny][nx] == 1:
+#             dfs(ny, nx)
+
+# flag = False
+# for i in range(N):
+#     for j in range(M):
+#         if board[i][j] == 1:
+#             dfs(i, j)
+#             flag = True
+#             break
+#     if flag == True: 
+#         break
+
+# def bfs(sy, sx, dist):
+#     Q = deque()
+#     Q.append([sy, sx])
+#     dist[sy][sx] = 0
+#     while Q:
+#         y, x = Q.popleft()
+#         if board[y][x] == 1:
+#             return dist[y][x] -1
+#         for dy, dx in dir:
+#             ny, nx = y+dy, x+dx
+#             if 0<= ny < N and 0<= nx < M and board[ny][nx] != 2 and dist[ny][nx] > dist[y][x] + 1:
+#                 dist[ny][nx] = dist[y][x] + 1
+#                 Q.append([ny, nx])
+#     return INF
+
+# dist = [[INF]*M for _ in range(N)]
+
+# sol = INF
+# for i in range(N):
+#     for j in range(M):
+#         # print("===")
+#         # for k in dist:
+#         #     print(k)
+#         if board[i][j] == 2:            
+#             sol = min(sol, bfs(i, j, dist))
+
+# print(sol)
+
 import sys
-
-input = sys.stdin.readline
 from collections import deque
-
-sys.setrecursionlimit(10**6)
-INF = 987654321
 
 N, M = map(int, input().split())
 board = []
 for _ in range(N):
     board.append(list(map(int, input().split())))
 
-dir = [[1,0], [-1, 0], [0, 1], [0, -1]]
-
+dir = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+INF = 9876543210
 def dfs(sy, sx):
     board[sy][sx] = 2
     for dy, dx in dir:
         ny, nx = sy+dy, sx+dx
-        if 0<= ny < N and 0 <= nx < M and board[ny][nx] == 1:
+        if 0<=ny<N and 0<=nx<M and board[ny][nx] == 1:
             dfs(ny, nx)
 
 flag = False
@@ -84,34 +139,33 @@ for i in range(N):
             dfs(i, j)
             flag = True
             break
-    if flag == True: 
+    if flag:
         break
-
-def bfs(sy, sx, dist):
-    Q = deque()
-    Q.append([sy, sx])
-    dist[sy][sx] = 0
-    while Q:
-        y, x = Q.popleft()
-        if board[y][x] == 1:
-            return dist[y][x] -1
-        for dy, dx in dir:
-            ny, nx = y+dy, x+dx
-            if 0<= ny < N and 0<= nx < M and board[ny][nx] != 2 and dist[ny][nx] > dist[y][x] + 1:
-                dist[ny][nx] = dist[y][x] + 1
-                Q.append([ny, nx])
-    return INF
 
 dist = [[INF]*M for _ in range(N)]
 
+def bfs(sy, sx, dist):
+    q = deque()
+    q.append([sy, sx])
+    dist[sy][sx] = 0
+    while q:
+        y, x = q.popleft()
+        if board[y][x] == 1:
+            return dist[y][x] - 1
+        for dy, dx in dir:
+            ny, nx = y+dy, x+dx
+            if 0<=ny<N and 0<=nx<M and board[ny][nx] != 2 and dist[ny][nx] > dist[y][x]+1 :
+                dist[ny][nx] = dist[y][x]+1
+                q.append([ny, nx])
+    return INF
+
 sol = INF
+
 for i in range(N):
     for j in range(M):
-        # print("===")
-        # for k in dist:
-        #     print(k)
-        if board[i][j] == 2:            
+        # print(dist)
+        # print("---")
+        if board[i][j] == 2:
             sol = min(sol, bfs(i, j, dist))
 
 print(sol)
-

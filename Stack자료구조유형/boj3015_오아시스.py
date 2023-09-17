@@ -27,6 +27,8 @@
 
 # print(result)
 
+# 스택에 (높이, 등장횟수) 저장하면서 순회
+
 import sys
 input = sys.stdin.readline
 n = int(input())
