@@ -7,10 +7,9 @@ def InputData():
     D = [list(map(int,readl().split())) for r in range(N)]
     return N, D
  
- 
 ans = -1
 # 입력 함수
-N, D = InputData()
+n, D = InputData()
 # 여기서부터 작성
 
 # 상 하 좌 우
