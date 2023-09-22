@@ -27,7 +27,7 @@ dy = [0, 1, 0, -1]
 
 #BFS 진행
 while q:
-    virus, s, x, y = q. popleft()
+    virus, s, x, y = q. popleft() 
     if s == target_s:
         break
     #현재 노드에서 주변 4가지 위치를 각각 확인

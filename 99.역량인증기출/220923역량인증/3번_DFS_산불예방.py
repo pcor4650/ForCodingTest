@@ -1,5 +1,6 @@
 import sys
- 
+
+
 def InputData():
     readl = sys.stdin.readline
     N = int(readl())
@@ -45,13 +46,14 @@ maxGroups = 0
 maxGroupsAge = 0
 
 import copy
+
 for age in uniqueAge:
     # 2차원 이상 배열은 copy()를 하면 내용복사가 안되므로 deepcopy 이용
-    filed = copy.deepcopy(D)    # 매 for문 마다 field 값 초기화, deepcopy 없이 다른 방법은?
+    field = copy.deepcopy(D)    # 매 for문 마다 field 값 초기화, deepcopy 없이 다른 방법은?
     count = 0   # 매 for문 마다 count 값 초기화
     for i in range(n):
         for j in range(n):
-            if filed[i][j] > age:
+            if field[i][j] > age:
                 DFS(i, j, field, age)
                 count += 1
     if count > maxGroups:

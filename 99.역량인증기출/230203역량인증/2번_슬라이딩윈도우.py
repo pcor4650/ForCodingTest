@@ -44,6 +44,8 @@ for start in range(N):
 		interval_sum = sum(R[start:end+1])
 		min_sum = min(interval_sum, min_sum)
 	
+print(min_sum)
+
 # print("R[0:1]",(R[0:1])	)
 	
 
@@ -54,7 +56,6 @@ for start in range(N):
 # 		# sums.append(interval_sum)
 # 		min_sum = min(min_sum, interval_sum)
 	
-print(min_sum)
 
 
 # s, e 가 있을 때? 인터벌의 합이 가장 작은 것은

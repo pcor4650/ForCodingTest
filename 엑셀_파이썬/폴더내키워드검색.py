@@ -80,23 +80,24 @@
 # 맥에서 동작 OK
 import os
 
+
 def check_token_usage(directory_path, token):
     for root, dirs, files in os.walk(directory_path):
         for file in files:
             if file.endswith(".js"):  # 리액트 프로젝트라면 .js 또는 .jsx 파일을 대상으로 합니다.
                 with open(os.path.join(root, file), 'r', encoding='utf-8') as f:
                     if token in f.read():
-                        print(f'Token "{token}" is used in {os.path.join(root, file)}')
+                        print('O')
                         return True
-    print(f'Token "{token}" is not used.')
+    print('X')
     return False
 
 # 엑셀에서 토큰 리스트를 가져오는 부분은 별도로 구현해야 합니다.
 # 이 예시에서는 단순히 하드코딩된 리스트를 사용합니다.
-tokens = ['TOKEN1', 'TOKEN2', 'TOKEN3', '@CP_EPEP_A']  # 실제 토큰 리스트로 교체해야 합니다.
+tokens = ["@HV_PROD_REG_ENABLE_BUTTON_S"]  # 실제 토큰 리스트로 교체해야 합니다.
 
 for token in tokens:
-    check_token_usage('/Users/parkcha/Desktop/exex', token)  # 실제 디렉토리 경로로 교체해야 합니다.
+    check_token_usage('D:\\01.Project\\1.ThinQ\\TPA\\G_Modules\\GEM\\GEM', token)  # 실제 디렉토리 경로로 교체해야 합니다.
 
 
 # 아직 확인 안함
