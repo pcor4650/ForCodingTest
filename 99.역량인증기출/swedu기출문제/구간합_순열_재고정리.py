@@ -57,3 +57,9 @@ for P in permutations(range(1, M+1)):
         print("s: ", s, ", e: ", e, ", cnt: ", cnt)
     total = max(total, cnt)
 print(N-total)
+
+
+# 풀이 방법
+# 주어진 배열 : 	    1 2 2 2 1 2 1
+# 1이 있는 배열 접두합 :0 1 1 1 1 2 2 3
+# 2가 있는 배열 접두합 :0 0 1 2 3 3 4 4 
